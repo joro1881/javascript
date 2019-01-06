@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    <form>
+        Enter text :<input type="text" name="simpleText" /> <br>
+        words :     <input type="text" name="words"/> <br>
+        <input type="submit" value="Words" onclick="countWords()"/>
+    </form>
+    <script>
+        function countWords() {
+            let inputLines = document.getElementsByName("simpleText").value;
+            let words = inputLines.join('\n').toLowerCase()
+                .split(/[^A-Za-z0-9_]+/).filter(w => w != '');
+            let wordsCount = new Map();
+            for (let w of words)
+                wordsCount.has(w) ? wordsCount.set(w,
+                    wordsCount.get(w)+1) : wordsCount.set(w, 1);
+            let allWords = Array.from(wordsCount.keys()).sort();
+            allWords.forEach(w =>
+                document.getElementsByName("words").value = document.write(`'${w}' -> ${wordsCount.get(w)} times`));
+                //console.log(`'${w}' -> ${wordsCount.get(w)} times`));
+
+        }
+    </script>
+    -->
+    <script>
+        function countWords(inputLines) {
+            let words = inputLines.join('\n').toLowerCase()
+                .split(/[^A-Za-z0-9_]+/).filter(w => w != '');
+            let wordsCount = new Map();
+            for (let w of words)
+                wordsCount.has(w) ? wordsCount.set(w,
+                    wordsCount.get(w)+1) : wordsCount.set(w, 1);
+            let allWords = Array.from(wordsCount.keys()).sort();
+            allWords.forEach(w => document.write(`'${w}' -> ${wordsCount.get(w)} times`));
+                //console.log(`'${w}' -> ${wordsCount.get(w)} times`));
+        }
+        countWords(['JS and Node.js JS again and again Oh, JS?'])
+    </script>
+
+</body>
+</html>

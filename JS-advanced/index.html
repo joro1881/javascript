@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS advanced Exercises</title>
+</head>
+<body>
+<a href="#" id="more" onclick="showText()">Read more …</a>
+
+<span id="text" style="display:none">Welcome to …</span>
+<script>
+    function showText() {
+        document.getElementById('text')
+            .style.display = 'inline';
+        document.getElementById('more')
+            .style.display = 'none';
+    }
+</script>
+<br>
+<br>
+<div>
+    <ul id="items">
+        <li>first item</li>
+        <li>second item</li>
+        <li>third item</li>
+    </ul>
+
+    <textarea id="result"></textarea>
+    <br>
+
+    <button onclick="extractText()"> Extract Text</button>
+    <br>
+    <input type="text" id="newItemText"/>
+    <button onclick="addItem()">Add Text</button>
+    <br>
+    <button onclick="removeli()">Delete</button>
+
+    <script>
+        function extractText() {
+            let itemNodes = document.querySelectorAll("ul#items li");
+            let textarea = document.querySelector("#result");
+
+            for (let node of itemNodes) {
+                textarea.value += node.textContent + "\n";
+            }
+        }
+
+        function addItem() {
+            let text =
+                document.getElementById('newItemText').value;
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(text));
+            document.getElementById("items").appendChild(li);
+            document.getElementById('newItemText').value = '';
+        }
+
+        function removeli() {
+            let liElements = document.querySelectorAll("#items li");
+            liElements.forEach(li => {
+                li.parentNode.removeChild(li);
+            });
+        }
+    </script>
+</div>
+<br>
+<br>
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Town</th>
+        </tr>
+        <tr>
+            <td>Eve</td>
+            <td>Sofia</td>
+        </tr>
+        <tr>
+            <td>Nick</td>
+            <td>Varna</td>
+        </tr>
+        <tr>
+            <td>Didi</td>
+            <td>Ruse</td>
+        </tr>
+        <tr>
+            <td>Tedy</td>
+            <td>Varna</td>
+        </tr>
+    </table>
+    <button onclick="colorizeRows()">Colorize</button>
+
+    <script>
+        function colorizeRows() {
+            let rows = document.querySelectorAll("table tr");
+            let index = 0;
+
+            for (let row of rows) {
+                index++;
+                if (index % 2 == 0)
+                    row.style.background = "teal";
+            }
+        }
+    </script>
+</div>
+<br>
+<br>
+<div>
+    <!--<input type="text" id="time"
+           style="border:3px solid blue;
+           text-align:center;
+           font-size:2em;"/>-->
+
+    <div id="time"
+         style="border:3px solid blue;
+                 text-align:center;
+                 font-size:2em;
+                 margin-bottom: 10px;
+                 width: 250px;
+                 height: 50px"> 00:00
+    </div>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn" disabled="true">Stop</button>
+    <script>
+        window.onload = function () {
+            stopwatch();
+        }
+
+        function stopwatch() {
+            let time, intervalID;
+            let startBtn = document.getElementById('startBtn');
+            let stopBtn = document.getElementById('stopBtn');
+
+            startBtn.addEventListener('click', function () {
+                time = -1;
+                incrementTime();
+                intervalID = setInterval(
+                    incrementTime, 1000);
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            });
+
+            stopBtn.addEventListener('click', function () {
+                clearInterval(intervalID);
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            });
+
+            function incrementTime() {
+                time++;
+                document.getElementById('time').textContent =
+                    ("0" + Math.trunc(time / 60)).slice(-2) +
+                    ':' + ("0" + (time % 60)).slice(-2);
+
+            }
+        }
+
+        /*window.onload = function() { countdown(600); };*/
+
+        /* function countdown(startTime) {
+             let time = startTime;
+             let box = document.getElementById('time');
+             let intervalID = setInterval(decrement, 1000);
+
+             function decrement() {
+                 time--;
+                 box.value = Math.trunc(time / 60) +
+                         ':' + ("0" + (time % 60)).slice(-2);
+
+             }
+
+         }*/
+    </script>
+</div>
+
+<br>
+<br>
+<div>
+    <p id="holder">
+        Lorem ipsum dolor sit amet, (consectetur adipiscing elit), sed do eiusmod (tempor) incididunt ut labore (et
+        dolore magna) aliqua.
+    </p>
+    <button onclick="extract()">
+        Extract Text
+    </button>
+
+    <script>
+        function extract() {
+            let para = document.getElementById("holder").textContent;
+            let pattern = /\(([^)]+)\)/g;
+            let result = [];
+
+            let match = pattern.exec(para);
+            while (match) {
+                result.push(match[1]);
+                match = pattern.exec(para);
+            }
+            result.join('; ');
+
+            for (let text of result) {
+                document.write(text);
+            }
+        }
+    </script>
+</div>
+
+</body>
+</html>

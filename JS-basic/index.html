@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript Exercises</title>
+</head>
+<body>
+    <div>
+        <p>Lecture 1 Syntax</p>
+        <script>
+            for (let i=1; i<=10; i++)
+            {
+                document.write(`<p>${i}</p>`);
+            }
+            //let has block scope, var has function scope
+            function calcSum() {
+                let num1 = document.getElementsByName('num1')[0].value;
+                let num2 = document.getElementsByName('num2')[0].value;
+                let sum = Number(num1) + Number(num2);
+                document.getElementsByName('sum')[0].value = sum;
+            }
+        </script>
+        <form>
+            num1: <input type="text" name="num1" /> <br>
+            num2: <input type="text" name="num2" /> <br>
+            sum: <input type="text" name="sum" /> <br>
+            <input type="button" value="Sum" onclick="calcSum()" />
+        </form>
+    </div>
+    <br>
+    <div>
+        <p>Lecture 2 Operations and Logic Flow</p>
+        Is 1981 a leap year ?
+        <script>
+            function leapYear(year) {
+                let leap = (year % 4 === 0 && year % 100 !== 0)
+                    || (year % 400 === 0);
+                document.write(leap ? "yes" : "no");
+            }leapYear(1981)
+        </script>
+    </div>
+    <br>
+    <div>
+        <ul>
+            <li><span style='color:green'>1</span></li>
+            <li><span style='color:blue'>2</span></li>
+            <li><span style='color:red'>3</span></li>
+        </ul>
+        <script>
+            function nums(n) {
+                let html = '<ul>\n';
+                for (let i = 1; i <= n; i++) {
+                    let color = 'blue';
+                    if (i % 2 !== 0) color = 'green';
+                    html += `<li><span style='color:${color}'>${i}</span></li>\n`;
+                }
+                html += '</ul>';
+                return html;
+            }
+            document.write(nums(10));
+        </script>
+    </div>
+    <div>
+        <a href="chessboard.html" type="text/javascript"> Chessboard</a>
+    </div>
+<!--
+// for (let index in nums) return keys
+
+// for (let value of nums) return value
+-->
+
+<!-- continue goes to next loop iteration -->
+    <br>
+    <div>
+        <p>Lecture 3 Functions </p>
+        <!-- 1. func cannot be overloading
+             2. have special array args arguments.lenght
+             3. Js variables can hold functions as their values let f = function(x) {.... return ..}
+             4. IIFE immedi-invo func expre
+             let f = (function () {
+                  let x = 0;
+                  return function() { console.log(++x); }
+                  })(); f(); f(); f(); f();
+             5. Lambada
+             let increment = x => x + 1;
+             console.log(increment(5)); // 6
+
+             let increment = function(x) {
+                            return x + 1;
+                             }
+        -->
+    </div>
+    <div>
+        <p>Lecture 4 Arrays and Matrices</p>
+        <!-- arr.push(40) adds 40
+             arr.pop() tail = 40, remove 40
+             arr.unshift(0) - adds first element direction ->
+             arr.shift <-
+             arr.join('|') adds to each element
+             arr.slice( start, end+1)
+             .filter()
+             .map(x => condition)
+             .reduce()
+             .reverse()
+             .concat()
+             .includes()
+             .indexOf()
+             .sort() not so good with numbers
+             .forEach()
+
+             function biggestElement(matrix) {
+
+                      let biggestNum = Number.NEGATIVE_INFINITY;
+                      matrix.forEach(
+                        r => r.forEach(
+                          c => biggestNum = Math.max(biggestNum, c)));
+                      return biggestNum;
+                    }
+             -->
+    </div>
+    <div>
+        <p>Lecture 5 Strings and Regex</p>
+        <!--
+            str.substr(5); //(start,lenght=null till end)
+            .split .filter .join .replace( //first// 'old',"new") vsqko (/old/g, "new));
+            .push .trim .repeat
+
+            function printBill(input) {
+              let items = input.filter((x,i) => i%2==0);
+              let sum = input.filter((x,i) => i%2==1)
+                .map(Number).reduce((a,b) => a + b);
+              console.log(`You purchased ${items.join(', ')} for a total sum of ${sum}`);
+            }
+
+
+          2. HTML escaping (replacing special chars escape sequence)
+
+                String.prototype.htmlEscape = function() {
+                      return this.replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;');
+                    }
+
+           3. Regular expressions (regex) example .htaccess file
+                    Match text by pattern
+              Patterns are defined by special syntax, e.g.
+                [0-9]+ matches non-empty sequence of digits
+                [A-Z][a-z]* matches a capital + small letters
+                \s+ matches whitespace (non-empty)
+                \S+ matches non-whitespace
+                [0-9]{3,6} – matches 3-6 digits
+
+                \d+ matches digits
+                \D+ matches non-digits
+                \w+ matches letters (Unicode)
+                \W+ matches non-letters
+                \+\d{1,3}([ -]*[0-9]){6,}
+                Matches international phone, e.g. +359 2 123-456
+
+              Validation
+                ^ matches start of text
+                $ matches end of text
+                ^\+\d{1,3}([ -]*[0-9]){6,}$
+                Validates international phone
+                +359 2 123-456 is a valid phone
+                +359 (888) 123-456 is a invalid phone
+
+                let emailPattern =
+                /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$/i;
+
+              Regex Literals
+                The classical (Perl syntax) is:
+                    /<regex>/<options>
+                Examples:
+                    /[a-z]+/gi matches all non-empty sequences of Latin letters, case-insensitively
+
+                    /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}/gi
+                    matches emails (simplified pattern)
+
+               Another replace regex
+               .replace(/old/g, "new) this time old = regex syntax
+            -->
+    </div>
+    <div>
+        <p>Lecture 6 Objects
+            <!--
+               Like in PHP let arr = ['name' => 'Test' , 'valid' => 'no'];
+                           let obj = { name : "Az" , age : 25 };
+               Object.keys(course);
+               Object.values(course);
+               obj.hasOwnProperty('name') boolean
+               values.includes('JS Core') boolean
+
+               strict mode
+               Object.freeze(cat);
+               cat.age = 10; //Error
+               -------------
+               Object.seal(cat);
+               cat.age = 10; //ok
+               delete cat.age; //Error in strict
+
+               let str = JSON.stringify(obj);
+               {"name":"Example","valid":3}
+               JSON.parse(str);
+               { name:"Example", valid:3}
+
+               Map Class holds { key -> value}
+
+               let score = new Map();
+               score.set("peter", 130);
+               score.set("Maria", 85);
+                for (let [k, v] of score){
+                  console.log(k + ' -> ' + v);
+               .delete()
+               .size
+
+               for(let[key,value] of phonebook){
+               console.log(`${key} -> ${value}`);
+               }
+               map.keys()
+            -->
+        </p>
+        <div>
+            <a href="CountingWords.html" type="text/javascript"> Counting Words</a>
+        </div>
+        <div>
+            <a href="ExtrUniWords.html" type="text/javascript"> Extracting Unique Words</a>
+        </div>
+    </div>
+
+</body>
+</html>
